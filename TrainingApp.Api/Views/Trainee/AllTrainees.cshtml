@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TrainingApp.Core.DTO.TraineeDTO>
+
+@{
+    ViewBag.Title = "Lista podopiecznych";
+    
+}
+
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="card-title mb-0">Lista podopiecznych</h2>
+            <a asp-action="AddTrainee" class="btn btn-primary">Dodaj podopiecznego</a>
+        </div>
+        <a>@ViewBag.TraineesList</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Imię</th>
+                    <th scope="col">Wiek</th>
+                    <th scope="col">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var trainee in Model)
+                    {
+                        <tr>
+                            <td>@trainee.Name</td>
+                            <td>@trainee.Age</td>
+                            <td>
+                                <a asp-action="EditTrainee" asp-route-traineeId="@trainee.TraineeId" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                                <form asp-action="RemoveTrainee" asp-route-traineeId="@trainee.TraineeId" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Czy na pewno chcesz usunąć tego podopiecznego?')">Usuń</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted py-3">
+                            Brak podopiecznych. <a asp-action="AddTrainee" class="text-primary">Dodaj pierwszego!</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model TrainingApp.Core.DTO.TraineeDTO
+
+@{
+    ViewBag.Title = "Edytuj podopiecznego";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-4">Edytuj podopiecznego</h2>
+                <form asp-action="EditTrainee" method="post">
+                    <input type="hidden" asp-for="TraineeId" />
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Imię</label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Age" class="form-label">Wiek</label>
+                        <input asp-for="Age" type="number" class="form-control" required />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                    </div>
+                    <div class="text-center">
+                        <a asp-action="AllTrainees" class="text-primary">Wróć do listy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" asp-fallback-test="window.jQuery" asp-fallback-src="~/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" asp-fallback-test="window.jQuery.validator" asp-fallback-src="~/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" asp-fallback-test="window.jQuery.validator.unobtrusive" asp-fallback-src="~/jquery.validate.unobtrusive.min.js"></script>
+}
