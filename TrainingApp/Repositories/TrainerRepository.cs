@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TrainingApp.Core.Entities;
 using TrainingApp.Core.Entities.AggregateRoots;
-using TrainingApp.Core.RepositoryInterfaces;
+using TrainingApp.Core.Interfaces.Repositories;
 using TrainingApp.Infrastructure.Repositories.RepositoryExceptions;
 
 namespace TrainingApp.Infrastructure.Repositories

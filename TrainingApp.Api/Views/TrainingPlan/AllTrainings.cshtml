@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Plany treningowe";
+    var trainings = ViewBag.Trainings as IEnumerable<TrainingPlan>;  
+    var traineeId = ViewBag.TraineeId;  
+}
+
+<div class="card shadow-sm">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="card-title mb-0">Plany treningowe</h2>
+            <a asp-action="AddTraining" asp-route-traineeId="@traineeId" class="btn btn-primary">Dodaj trening</a>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Data i godzina</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (trainings != null && trainings.Any())
+                {
+                    foreach (var plan in trainings)
+                    {
+                        <tr>
+                            <td>@plan.Name</td>
+                            <td>@(plan.ScheduledDate?.ToString("yyyy-MM-dd HH:mm") ?? "-")</td>
+                            <td>
+                                <a asp-action="EditTraining" asp-route-id="@plan.Id" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                                <form asp-action="DeleteTraining" asp-route-id="@plan.Id" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Usunąć ten trening?')">Usuń</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">Brak zaplanowanych treningów.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TrainingApp.Core.Entities.AggregateRoots;
-using TrainingApp.Core.RepositoryInterfaces;
+using TrainingApp.Core.Interfaces.Repositories;
 
 namespace TrainingApp.Infrastructure.Repositories
 {

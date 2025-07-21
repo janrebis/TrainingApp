@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainingApp.Application.DTO;
 using TrainingApp.Application.Exceptions;
-using TrainingApp.Core.DTO;
 using TrainingApp.Core.Entities;
 using TrainingApp.Core.Entities.AggregateRoots;
 using TrainingApp.Core.Exceptions;
-using TrainingApp.Core.RepositoryInterfaces;
+using TrainingApp.Core.Interfaces.Repositories;
+using TrainingApp.Core.Interfaces.Services;
 using TrainingApp.Core.Validators;
-using TrainingApp.Infrastructure.Repositories;
+using AutoMapper;
 
 namespace TrainingApp.Application.Services
 {
-    public class TrainerService
+    public class TrainerService : ITrainerService
     {
         private readonly ITrainerRepository _trainerRepository;
+        private readonly IMapper _mapper;
 
-        public TrainerService(ITrainerRepository trainerRepository)
+        public TrainerService(ITrainerRepository trainerRepository, IMapper mapper)
         {
             _trainerRepository = trainerRepository;
+            _mapper = mapper;
         }
 
         #region Trainer
@@ -114,6 +111,29 @@ namespace TrainingApp.Application.Services
             await _trainerRepository.UpdateAsync(trainer);
             await _trainerRepository.CommitAsync();
             }
+        }
+
+        private TraineeDTO switchDTOToTrainee(Trainee trainee)
+        {
+            TraineeDTO traineeDTO = new TraineeDTO()
+            {
+                TraineeId = trainee.TraineeId,
+                Name = trainee.Name,
+                Age = trainee.Age,
+                TrainerId = trainee.TrainerId,
+            };
+
+            return traineeDTO;
+        }
+
+        Task<IEnumerable<Trainee>> ITrainerService.GetAllTraineesAsync(Guid trainerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Trainee> ITrainerService.GetTraineeByIdAsync(Guid trainerId, Guid traineeId)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

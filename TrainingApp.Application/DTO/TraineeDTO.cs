@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingApp.Core.DTO
+namespace TrainingApp.Application.DTO
 {
     public class TraineeDTO
     {
@@ -12,13 +12,16 @@ namespace TrainingApp.Core.DTO
         public string Name { get; set; }
         public int? Age { get; set; }
 
+        public Guid TrainerId { get; set; }
+
         public TraineeDTO() { }
 
-        public TraineeDTO(Guid traineeId, string name, int? age)
+        public TraineeDTO(Guid traineeId, string name, int? age, Guid trainerId)
         {
             TraineeId = traineeId;
             Name = name;
             Age = age;
+            TrainerId = trainerId;
         }
     }
 }

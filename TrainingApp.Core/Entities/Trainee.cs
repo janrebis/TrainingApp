@@ -10,9 +10,7 @@ namespace TrainingApp.Core.Entities
 {
     public class Trainee
     {
-        [Key]
         public Guid TraineeId { get; private set; }
-        [Required]
         public string Name { get; private set; }
         public int? Age { get; private set; }
 
@@ -20,7 +18,6 @@ namespace TrainingApp.Core.Entities
 
         public Guid TrainerId { get;  set; }
         public Trainer Trainer { get; private set; }
-        [Timestamp]
         public byte[] RowVersion { get; set; }  
         public Trainee(string name, int age)
         {

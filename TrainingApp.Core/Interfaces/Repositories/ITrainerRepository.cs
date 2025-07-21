@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TrainingApp.Core.Entities;
 using TrainingApp.Core.Entities.AggregateRoots;
 
-namespace TrainingApp.Core.RepositoryInterfaces
+namespace TrainingApp.Core.Interfaces.Repositories
 {
     public interface ITrainerRepository : IAggregateRootRepository<Trainer>
     {

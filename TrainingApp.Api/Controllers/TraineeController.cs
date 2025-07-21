@@ -6,14 +6,15 @@ using Microsoft.IdentityModel.Tokens;
 using TrainingApp.Application.Services;
 using TrainingApp.Core.DTO;
 using TrainingApp.Core.Entities.AggregateRoots;
+using TrainingApp.Core.Interfaces.Services;
 
 namespace TrainingApp.Api.Controllers
 {
     [Route("[controller]/[action]")]
     public class TraineeController : Controller
     {
-        private readonly TrainerService _trainerService;
-        public TraineeController(TrainerService trainerService)
+        private readonly ITrainerService _trainerService;
+        public TraineeController(ITrainerService trainerService)
         {
             _trainerService = trainerService;
         }

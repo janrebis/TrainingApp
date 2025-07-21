@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TrainingApp.Core.DTO;
 using TrainingApp.Core.Exceptions;
 using TrainingApp.Core.Validators;
 
@@ -12,13 +11,9 @@ namespace TrainingApp.Core.Entities.AggregateRoots
 {
     public class Trainer : IAggregateRoot
     {
-        [Key]
         public Guid TrainerId { get; private set; }
         public string Name { get; private set; }
         public ICollection<Trainee> Trainees { get; private set; } = new List<Trainee>();
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }  
         public Trainer(Guid trainerId, string name)
         {
             TrainerId = trainerId;
@@ -49,11 +44,10 @@ namespace TrainingApp.Core.Entities.AggregateRoots
             Trainees.Remove(traineeToDelete);
         }
 
-        public TraineeDTO GetTraineeData(Guid traineeId)
+        public Trainee GetTraineeData(Guid traineeId)
         {
             var trainee = GetTraineeById(traineeId);
-            TraineeDTO traineeDto = new TraineeDTO(traineeId, trainee.Name, trainee.Age);
-            return traineeDto;
+            return trainee;
         }
 
         public Trainee GetTraineeById(Guid traineeId)
@@ -63,9 +57,9 @@ namespace TrainingApp.Core.Entities.AggregateRoots
             return trainee;
         }
 
-        public IEnumerable<TraineeDTO> GetAllTrainees()
+        public IEnumerable<Trainee> GetAllTrainees()
         {
-            return Trainees.Select(t => new TraineeDTO(t.TraineeId, t.Name, t.Age));
+            return Trainees.Where(t => t.TrainerId == TrainerId);
         }
 
     }

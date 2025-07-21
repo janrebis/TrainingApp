@@ -20,9 +20,11 @@ namespace TrainingApp.Infrastructure
 
         public virtual DbSet<Trainer> Trainers { get; set; }
         public virtual DbSet<Trainee> Trainees { get; set; }
-    
+        public virtual DbSet<Exercise> Exercises { get; set; }
+        public virtual DbSet<TrainingPlan> TrainingPlans { get; set; }
 
-     protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -45,7 +47,22 @@ namespace TrainingApp.Infrastructure
                     .IsRowVersion();  
             });
 
-           
+            modelBuilder.Entity<TrainingPlan>(builder =>
+            {
+                builder.HasKey(tp => tp.TrainingPlanId);
+                builder.HasMany(tp => tp.Exercises)
+                    .WithOne(e => e.TrainingPlan)
+                    .HasForeignKey(e => e.TrainingPlanId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Exercise>(builder =>
+            {
+                builder.HasKey(e => e.ExerciseId);
+            });
+
+
         }
     }
 

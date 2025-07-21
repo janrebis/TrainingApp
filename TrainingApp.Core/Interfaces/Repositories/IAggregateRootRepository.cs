@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrainingApp.Core.Entities.AggregateRoots;
 
-namespace TrainingApp.Core.RepositoryInterfaces
+namespace TrainingApp.Core.Interfaces.Repositories
 {
     public interface IAggregateRootRepository<T> where T : class, IAggregateRoot
     {
@@ -13,6 +13,6 @@ namespace TrainingApp.Core.RepositoryInterfaces
         Task InsertAsync(T entity);
         Task UpdateAsync(T entity);
         Task RemoveAsync(Guid id);
-        Task CommitAsync(); 
+        Task CommitAsync();
     }
 }
