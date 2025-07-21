@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TrainingApp.Api.DTO;
-using TrainingApp.Core.DTO;
+using TrainingApp.Application.DTO;
 using TrainingApp.Core.Interfaces.Services;
 using TrainingApp.Core.ValueObjects;
 

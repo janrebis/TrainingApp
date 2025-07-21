@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TrainingApp.Application.DTO
 {
-    internal class TrainerDTO
+    public class TrainerDTO
     {
+        Guid TrainerId { get; set; }
     }
 }

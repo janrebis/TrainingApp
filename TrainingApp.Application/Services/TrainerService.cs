@@ -88,14 +88,21 @@ namespace TrainingApp.Application.Services
         }
         public async Task<IEnumerable<TraineeDTO>> GetAllTraineesAsync(Guid trainerId)
         {
+            IEnumerable<TraineeDTO> traineesDTO = new List<TraineeDTO>();   
             var trainer = await _trainerRepository.FindByIdAsync(trainerId);
-            return trainer.GetAllTrainees();
+            foreach(Trainee trainee in trainer.GetAllTrainees())
+            {
+                traineesDTO.Append(_mapper.Map<TraineeDTO>(trainee));
+            };
+
+            return traineesDTO;
+
         }
 
         public async Task<TraineeDTO> GetTraineeByIdAsync(Guid trainerId, Guid traineeId)
         {
             var trainer = await _trainerRepository.FindByIdAsync(trainerId);
-            return trainer.GetTraineeData(traineeId);
+            return _mapper.Map<TraineeDTO>(trainer.GetTraineeById(traineeId));
         }
 
         public async Task RemoveTraineeAsync(Guid trainerId, Guid traineeId)
@@ -113,25 +120,13 @@ namespace TrainingApp.Application.Services
             }
         }
 
-        private TraineeDTO switchDTOToTrainee(Trainee trainee)
-        {
-            TraineeDTO traineeDTO = new TraineeDTO()
-            {
-                TraineeId = trainee.TraineeId,
-                Name = trainee.Name,
-                Age = trainee.Age,
-                TrainerId = trainee.TrainerId,
-            };
 
-            return traineeDTO;
-        }
-
-        Task<IEnumerable<Trainee>> ITrainerService.GetAllTraineesAsync(Guid trainerId)
+        Task<Trainee> ITrainerService.GetTraineeByIdAsync(Guid trainerId, Guid traineeId)
         {
             throw new NotImplementedException();
         }
 
-        Task<Trainee> ITrainerService.GetTraineeByIdAsync(Guid trainerId, Guid traineeId)
+        Task<IEnumerable<Trainee>> ITrainerService.GetAllTraineesAsync(Guid trainerId)
         {
             throw new NotImplementedException();
         }

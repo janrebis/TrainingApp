@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using TrainingApp.Application.DTO;
 using TrainingApp.Application.Services;
-using TrainingApp.Core.DTO;
 using TrainingApp.Core.Entities.AggregateRoots;
 using TrainingApp.Core.Interfaces.Services;
 

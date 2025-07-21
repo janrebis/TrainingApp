@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TrainingApp.Api.DTO;
+using TrainingApp.Application.DTO;
+using TrainingApp.Application.DTO;
 using TrainingApp.Application.Services;
 using TrainingApp.Core.Interfaces.Services;
 using TrainingApp.Infrastructure.Identity;

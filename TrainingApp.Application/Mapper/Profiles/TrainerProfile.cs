@@ -1,13 +1,19 @@
-﻿using AutoMapper;
-using TrainingApp.Api.DTO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using TrainingApp.Application.DTO;
 using TrainingApp.Core.Entities.AggregateRoots;
 
 namespace TrainingApp.Application.Mapper.Profiles
 {
-    public class TrainingPlanProfile : Profile
+    public class TrainerProfile : Profile
     {
-        public TrainingPlanProfile() {
-            CreateMap<TrainingPlan, TrainingPlanDTO>();
-        }
+        public TrainerProfile() {
+
+            CreateMap<TrainerDTO, Trainer>();
+        } 
     }
 }
