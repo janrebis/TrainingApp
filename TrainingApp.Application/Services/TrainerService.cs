@@ -86,23 +86,30 @@ namespace TrainingApp.Application.Services
                 throw new ConcurrencyException("Trainee was modified by another user. Please reload and try again.");
             }
         }
-        public async Task<IEnumerable<TraineeDTO>> GetAllTraineesAsync(Guid trainerId)
+        public async Task<IEnumerable<T>> GetAllTraineesAsync<T>(Guid trainerId) where T: class
         {
+            if (typeof(T) != typeof(TraineeDTO))
+            {
+                throw new NotSupportedException($"Type {typeof(T).Name} is not supported.");
+            }
+
             IEnumerable<TraineeDTO> traineesDTO = new List<TraineeDTO>();   
             var trainer = await _trainerRepository.FindByIdAsync(trainerId);
-            foreach(Trainee trainee in trainer.GetAllTrainees())
-            {
-                traineesDTO.Append(_mapper.Map<TraineeDTO>(trainee));
-            };
+            var trainees = trainer.GetAllTrainees();
 
-            return traineesDTO;
+            var result = trainees
+                .Select(trainee => _mapper.Map<T>(trainee))
+                .ToList();
 
+            return result;
         }
 
-        public async Task<TraineeDTO> GetTraineeByIdAsync(Guid trainerId, Guid traineeId)
+        public async Task<T> GetTraineeByIdAsync<T>(Guid trainerId, Guid traineeId) where T : class
         {
             var trainer = await _trainerRepository.FindByIdAsync(trainerId);
-            return _mapper.Map<TraineeDTO>(trainer.GetTraineeById(traineeId));
+            var trainee = trainer.GetTraineeById(traineeId);
+            var result = _mapper.Map<T>(trainee);
+            return result;
         }
 
         public async Task RemoveTraineeAsync(Guid trainerId, Guid traineeId)
@@ -118,17 +125,6 @@ namespace TrainingApp.Application.Services
             await _trainerRepository.UpdateAsync(trainer);
             await _trainerRepository.CommitAsync();
             }
-        }
-
-
-        Task<Trainee> ITrainerService.GetTraineeByIdAsync(Guid trainerId, Guid traineeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Trainee>> ITrainerService.GetAllTraineesAsync(Guid trainerId)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

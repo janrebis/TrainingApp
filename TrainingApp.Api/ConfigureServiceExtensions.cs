@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using TrainingApp.Application.Services;
 using TrainingApp.Core.Interfaces.Repositories;
 using TrainingApp.Core.Interfaces.Services;
@@ -8,7 +7,8 @@ using TrainingApp.Infrastructure;
 using TrainingApp.Infrastructure.Identity;
 using TrainingApp.Infrastructure.Repositories;
 using AutoMapper;
-using System.Reflection;
+using TrainingApp.Application.DTO;
+using TrainingApp.Core.Entities.AggregateRoots;
 using TrainingApp.Application.Mapper.Profiles;
 namespace TrainingApp.Api
 {
@@ -43,9 +43,8 @@ namespace TrainingApp.Api
             services.AddScoped<ITrainerService, TrainerService>();
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddControllers();
+            services.AddAutoMapper(typeof(TrainerProfile));
             services.AddAutoMapper(typeof(TrainingPlanProfile));
-            services.AddAutoMapper(typeof(TraineeProfile));
-
             return services;
         }
     }

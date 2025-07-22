@@ -6,7 +6,8 @@ namespace TrainingApp.Application.Mapper.Profiles
     public class TraineeProfile : Profile
     {
         public TraineeProfile() {
-            CreateMap<TraineeDTO, Trainee>();        
+            CreateMap<TraineeDTO, Trainee>();    
+            CreateMap<Trainee, TraineeDTO>();
         }
     }
 }

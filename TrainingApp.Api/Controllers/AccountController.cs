@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TrainingApp.Application.DTO;
-using TrainingApp.Application.DTO;
-using TrainingApp.Application.Services;
 using TrainingApp.Core.Interfaces.Services;
 using TrainingApp.Infrastructure.Identity;
 
@@ -14,7 +12,7 @@ namespace TrainingApp.Api.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ITrainerService _trainerService;
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, TrainerService trainerService)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ITrainerService trainerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;

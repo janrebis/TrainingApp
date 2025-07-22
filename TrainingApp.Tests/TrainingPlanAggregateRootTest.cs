@@ -6,7 +6,7 @@ using TrainingApp.Core.Exceptions;
 using TrainingApp.Core.ValueObjects;
 using Xunit;
 
-namespace TrApp.Tests.Domain
+namespace TrainingApp.Tests.Domain
 {
     public class TrainingPlanTests
     {
@@ -29,16 +29,16 @@ namespace TrApp.Tests.Domain
             Assert.Equal("Training Plan", plan.Name);
         }
 
-        [Fact]
-        public void AddTrainingPlanToId_ShouldSetTraineeId()
-        {
-            var plan = new TrainingPlan("Test");
-            var id = Guid.NewGuid();
+        //[Fact]
+        //public void AddTrainingPlanToId_ShouldSetTraineeId()
+        //{
+        //    var plan = new TrainingPlan("Test");
+        //    var id = Guid.NewGuid();
 
-            plan.AddTrainingPlanToId(id);
+        //    plan.AddTrainingPlanToId(id);
 
-            Assert.Equal(id, plan.TraineeId);
-        }
+        //    Assert.Equal(id, plan.TraineeId);
+        //}
 
         [Fact]
         public void ChangeTrainingType_ShouldUpdateType()

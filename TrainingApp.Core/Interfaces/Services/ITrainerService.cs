@@ -11,8 +11,8 @@ namespace TrainingApp.Core.Interfaces.Services
         public Task RemoveTrainerAsync(Guid trainerId);
         public Task AddTraineeAsync(Guid trainerId, string name, int age);
         public Task UpdateTraineeAsync(Guid trainerId, Guid traineeId, string? name, int? age);
-        public Task<IEnumerable<Trainee>> GetAllTraineesAsync(Guid trainerId);
-        public Task<Trainee> GetTraineeByIdAsync(Guid trainerId, Guid traineeId);
+        public Task<IEnumerable<T>> GetAllTraineesAsync<T>(Guid trainerId) where T : class;
+        public Task<T> GetTraineeByIdAsync<T>(Guid trainerId, Guid traineeId) where T : class;
         public Task RemoveTraineeAsync(Guid trainerId, Guid traineeId);
 
 

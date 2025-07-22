@@ -24,7 +24,7 @@ namespace TrainingApp.Api.Controllers
         {
             var trainerId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             Trainer trainer = await _trainerService.FindTrainerAsync(trainerId);
-            var trainees = await _trainerService.GetAllTraineesAsync(trainerId);
+            var trainees = await _trainerService.GetAllTraineesAsync<TraineeDTO>(trainerId);
             ViewBag.TraineesList = trainer.Trainees.ToList().Count;
             return View(trainees);
         }
