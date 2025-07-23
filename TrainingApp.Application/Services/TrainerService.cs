@@ -126,6 +126,7 @@ namespace TrainingApp.Application.Services
             await _trainerRepository.CommitAsync();
             }
         }
+
         #endregion
     }
 }

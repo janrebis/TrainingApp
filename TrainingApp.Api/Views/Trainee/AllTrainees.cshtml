@@ -30,9 +30,10 @@
                             <td>@trainee.Age</td>
                             <td>
                                 <a asp-action="AddTraining" asp-controller="TrainingPlan" asp-route-traineeId="@trainee.TraineeId" class="btn btn-sm btn-outline-primary">Zaplanuj trening</a>
+                                <a asp-action="AllTrainings" asp-controller="TrainingPlan" asp-route-traineeId="@trainee.TraineeId" class="btn btn-sm btn-outline-primary">Zaplanowane treningi</a>
                                 <a asp-action="EditTrainee" asp-route-traineeId="@trainee.TraineeId" class="btn btn-sm btn-outline-primary">Edytuj</a>
                                 <form asp-action="RemoveTrainee" asp-route-traineeId="@trainee.TraineeId" method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Czy na pewno chcesz usunąć tego podopiecznego?')">Usuń</button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Czy na pewno chcesz usunąć tego podopiecznego?')">Usuń</button>
                                 </form>
                                 
                             </td>

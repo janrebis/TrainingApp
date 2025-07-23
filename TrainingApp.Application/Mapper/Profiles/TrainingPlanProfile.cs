@@ -8,6 +8,7 @@ namespace TrainingApp.Application.Mapper.Profiles
     {
         public TrainingPlanProfile() {
             CreateMap<TrainingPlanDTO, TrainingPlan>();
+            CreateMap<TrainingPlan, TrainingPlanDTO>();
         }
     }
 }
