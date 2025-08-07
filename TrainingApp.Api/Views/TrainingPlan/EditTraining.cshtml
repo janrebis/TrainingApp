@@ -1,3 +1,59 @@
-﻿@{
-	ViewBag.Title = "Edytuj trening";
+﻿@model TrainingPlanDTO
+
+@{
+    ViewBag.Title = "Edytuj trening";
 }
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="card-title text-center mb-4">Edytuj trening</h2>
+
+                <form asp-action="EditTraining" method="post">
+                    <input type="hidden" asp-for="TrainingPlanId" />
+                    <input type="hidden" asp-for="TraineeId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Nazwa</label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ScheduledDate" class="form-label">Data i godzina</label>
+                        <input asp-for="ScheduledDate" type="datetime-local" class="form-control" />
+                        <span asp-validation-for="ScheduledDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TrainingType" class="form-label">Typ treningu</label>
+                        <select asp-for="TrainingType" class="form-control">
+                            <option value="">-- wybierz --</option>
+                            @foreach (var type in Enum.GetValues(typeof(TrainingApp.Core.Entities.Enum.TrainingType)))
+                            {
+                                <option value="@type" selected="@(type.Equals(Model.TrainingType) ? "selected" : null)">
+                                    @type
+                                </option>
+                            }
+                        </select>
+                        <span asp-validation-for="TrainingType" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Notes" class="form-label">Notatki</label>
+                        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-success">Zapisz zmiany</button>
+                    </div>
+
+                    <div class="text-center">
+                        <a asp-action="AllTrainings" asp-route-traineeId="@Model.TraineeId" class="text-primary">Wróć do listy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,5 +7,9 @@ namespace TrainingApp.Core.Interfaces.Services
     {
         public Task<Guid> AddTrainingPlan(TrainingPlanData trainingPlanData);
         public Task<IEnumerable<T>> GetTrainingPlans<T>(Guid traineeId);
+
+        public Task<Guid> EditTrainingPlan(TrainingPlan trainingPlan);
+
+        public Task<T> FindTrainingPlanById<T>(Guid trianingPlanId);
     }
 }

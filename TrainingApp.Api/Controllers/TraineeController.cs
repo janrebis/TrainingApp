@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,11 @@ namespace TrainingApp.Api.Controllers
     public class TraineeController : Controller
     {
         private readonly ITrainerService _trainerService;
-        public TraineeController(ITrainerService trainerService)
+        private readonly IMapper _mapper;
+        public TraineeController(ITrainerService trainerService, IMapper mapper)
         {
             _trainerService = trainerService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -71,7 +74,7 @@ namespace TrainingApp.Api.Controllers
         {
             var trainerId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             Trainer trainer = await _trainerService.FindTrainerAsync(trainerId);
-            var traineeDTO = trainer.GetTraineeData(traineeId);
+            var traineeDTO = _mapper.Map<TraineeDTO>(trainer.GetTraineeData(traineeId));
 
             if (traineeDTO == null)
             {

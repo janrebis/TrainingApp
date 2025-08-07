@@ -59,5 +59,33 @@ namespace TrainingApp.Application.Services
             
             return result;
         }
+
+        public async Task<T> FindTrainingPlanById<T>(Guid trainingPlanId)
+        {
+            var trainingPlan = await _trainingPlanRepository.FindByIdAsync(trainingPlanId);
+            var result = _mapper.Map<T>(trainingPlan);
+            return result;
+        }
+        public async Task<Guid> EditTrainingPlan(TrainingPlan trainingPlan)
+        {
+            var trainingPlanToUpdate = await _trainingPlanRepository.FindByIdAsync(trainingPlan.TrainingPlanId);
+
+            if (trainingPlanToUpdate == null)
+            {
+                throw new Exception("Training plan not found");
+            }
+
+            trainingPlanToUpdate.SetTrainingName(trainingPlan.Name);
+            trainingPlanToUpdate.ChangeStatus(trainingPlan.Status);
+            trainingPlanToUpdate.ChangeTrainingType(trainingPlan.TrainingType);
+            trainingPlanToUpdate.UpdateNotes(trainingPlan.Notes);
+            trainingPlanToUpdate.Schedule(trainingPlan.ScheduledDate);
+            trainingPlanToUpdate.AssignTrainee(trainingPlan.TraineeId);
+
+            await _trainingPlanRepository.UpdateAsync(trainingPlanToUpdate);
+            await _trainingPlanRepository.CommitAsync();
+
+            return trainingPlanToUpdate.TrainingPlanId;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace TrainingApp.Infrastructure.Repositories
 
             if (trainingPlan == null)
             {
-                throw new Exception("Traning plan not found");
+                throw new Exception($"Training plan with id {id} not found.");
             }
 
             return trainingPlan;

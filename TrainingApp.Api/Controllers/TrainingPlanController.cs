@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TrainingApp.Application.DTO;
+using TrainingApp.Core.Entities.AggregateRoots;
 using TrainingApp.Core.Interfaces.Services;
 using TrainingApp.Core.ValueObjects;
 
 
-/*
- TODO: Dodać porządną walidację, uporządkować kod
- */
+
+
 namespace TrainingApp.Api.Controllers
 {
     [Route("[controller]/[action]")]
@@ -14,17 +15,20 @@ namespace TrainingApp.Api.Controllers
     public class TrainingPlanController : Controller
     {
         private readonly ITrainingPlanService _trainingPlanService;
-        public TrainingPlanController(ITrainingPlanService trainingPlanService)
+        private readonly IMapper _mapper;
+        public TrainingPlanController(ITrainingPlanService trainingPlanService, IMapper mapper)
         {
             _trainingPlanService = trainingPlanService;
+            _mapper = mapper;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> AllTrainings(Guid traineeId)
         {
             var trainings = await _trainingPlanService.GetTrainingPlans<TrainingPlanDTO>(traineeId);
-            ViewBag.Trainings = trainings;  
-            ViewBag.TraineeId = traineeId;  
+            ViewBag.Trainings = trainings;
+            ViewBag.TraineeId = traineeId;
             return View();
         }
 
@@ -52,7 +56,7 @@ namespace TrainingApp.Api.Controllers
                     trainingPlanDTO.ScheduledDate,
                     trainingPlanDTO.Notes
                     );
-               await _trainingPlanService.AddTrainingPlan(trainingPlanData);
+                await _trainingPlanService.AddTrainingPlan(trainingPlanData);
                 return RedirectToAction(nameof(AllTrainings), "TrainingPlan");
             }
 
@@ -63,31 +67,21 @@ namespace TrainingApp.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditTraining(Guid traineeId)
+        public async Task<IActionResult> EditTraining(Guid trainingPlanId)
         {
-            var model = new TrainingPlanDTO
-            {
-                TraineeId = traineeId
-            };
-
-            return View(model);
+            var trainingPlanDTO = await _trainingPlanService.FindTrainingPlanById<TrainingPlanDTO>(trainingPlanId);
+            return View(trainingPlanDTO);
         }
-
+        
 
         [HttpPost]
         public async Task<IActionResult> EditTraining(TrainingPlanDTO trainingPlanDTO)
         {
             if (ModelState.IsValid)
             {
-                var trainingPlanData = new TrainingPlanData(
-                    trainingPlanDTO.Name,
-                    trainingPlanDTO.TraineeId,
-                    trainingPlanDTO.TrainingType,
-                    trainingPlanDTO.ScheduledDate,
-                    trainingPlanDTO.Notes
-                    );
-                await _trainingPlanService.AddTrainingPlan(trainingPlanData);
-                return RedirectToAction(nameof(AllTrainings), "TrainingPlan");
+
+                await _trainingPlanService.EditTrainingPlan(_mapper.Map<TrainingPlan>(trainingPlanDTO));
+                return RedirectToAction(nameof(AllTrainings), "TrainingPlan", new { traineeId = trainingPlanDTO.TraineeId});
             }
 
             else

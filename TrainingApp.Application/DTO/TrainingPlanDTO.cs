@@ -4,7 +4,7 @@ namespace TrainingApp.Application.DTO
 {
     public class TrainingPlanDTO()
     {
-       public Guid Id { get; set; }
+       public Guid TrainingPlanId { get; set; }
        public string? Name { get; set; }
        public Guid TraineeId { get; set; }
        public TrainingType? TrainingType { get; set; }

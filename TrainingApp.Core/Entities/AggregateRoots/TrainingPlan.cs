@@ -16,7 +16,7 @@ namespace TrainingApp.Core.Entities.AggregateRoots
         public Guid TrainingPlanId { get; private set; }
         public string Name { get; private set; }
         public Guid TraineeId { get; private set; }
-        public TrainingType? TrainingType { get; private set; }
+        public TrainingType TrainingType { get; private set; }
         public ICollection<Exercise> Exercises { get; set; } =   new List<Exercise>();
         public TimeSpan? TotalDuration
         {
@@ -43,6 +43,8 @@ namespace TrainingApp.Core.Entities.AggregateRoots
             Status = DefaultStatus;
             CreationDate = DateTime.UtcNow;
         }
+
+        public void SetTrainingName(String trainingName) { Name = trainingName; }
 
         public void AssignTrainee(Guid traineeId) { TraineeId = traineeId; }
         public void ChangeTrainingType(TrainingType trainingType) { TrainingType = trainingType; }

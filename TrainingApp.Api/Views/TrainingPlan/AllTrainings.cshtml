@@ -28,8 +28,8 @@
                             <td>@plan.Name</td>
                             <td>@(plan.ScheduledDate?.ToString("yyyy-MM-dd HH:mm") ?? "-")</td>
                             <td>
-                                <a asp-action="EditTraining" asp-route-id="@plan.Id" class="btn btn-sm btn-outline-primary">Edytuj</a>
-                                <form asp-action="DeleteTraining" asp-route-id="@plan.Id" method="post" style="display:inline;">
+                                <a asp-action="EditTraining" asp-route-trainingPlanId="@plan.TrainingPlanId" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                                <form asp-action="DeleteTraining" asp-route-trainingPlanId="@plan.TrainingPlanId" method="post" style="display:inline;">
                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Usunąć ten trening?')">Usuń</button>
                                 </form>
                             </td>
